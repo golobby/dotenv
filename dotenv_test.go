@@ -61,6 +61,26 @@ func TestLoad_With_Invalid_File(t *testing.T) {
 	assert.NoError(t, err)
 }
 
+func TestLoad_With_Non_Readable_File(t *testing.T) {
+	f, _ := os.OpenFile("resources/test/.env.invalid", os.O_APPEND, 0644)
+
+	c := &Config{}
+	err := dotenv.Load(f, c)
+	assert.Error(t, err)
+}
+
+func TestLoad_With_Invalid_Structure(t *testing.T) {
+	f, err := os.Open("resources/test/.env")
+	assert.NoError(t, err)
+
+	var number int
+	err = dotenv.Load(f, &number)
+	assert.Errorf(t, err, "dotenv: invalid structure")
+
+	err = f.Close()
+	assert.NoError(t, err)
+}
+
 func TestLoad_With_Invalid_Field_It_Should_Fail(t *testing.T) {
 	f, err := os.Open("resources/test/.env")
 	assert.NoError(t, err)
