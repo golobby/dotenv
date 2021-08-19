@@ -2,7 +2,7 @@
 [![CI](https://github.com/golobby/dotenv/actions/workflows/ci.yml/badge.svg)](https://github.com/golobby/dotenv/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/golobby/dotenv/workflows/CodeQL/badge.svg)](https://github.com/golobby/dotenv/actions?query=workflow%3ACodeQL)
 [![Go Report Card](https://goreportcard.com/badge/github.com/golobby/dotenv)](https://goreportcard.com/report/github.com/golobby/dotenv)
-[![Coverage Status](https://coveralls.io/repos/github/golobby/dotenv/badge.svg?branch=master)](https://coveralls.io/github/golobby/dotenv?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/golobby/dotenv/badge.svg?branch=master&v=1)](https://coveralls.io/github/golobby/dotenv?branch=master)
 
 # DotEnv
 
