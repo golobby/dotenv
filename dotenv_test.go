@@ -1,7 +1,7 @@
 package dotenv_test
 
 import (
-	"github.com/golobby/dotenv/v2"
+	"github.com/golobby/dotenv"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
