@@ -34,6 +34,8 @@ DB_USER=root
 DB_PASS=secret
 ```
 
+Sample `.go` file:
+
 ```go
 type Config struct {
     Debug bool      `env:"DEBUG"`
