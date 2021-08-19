@@ -59,8 +59,8 @@ err := dotenv.Load(f, &c)
 ```
 
 ## See Also
-* ***[golobby/config](https://github.com/golobby/config)**: A lightweight yet powerful config package for Go projects*
-* ***[golobby/env](https://github.com/golobby/env)**: A lightweight package for loading OS environment variables into structs for Go projects*
+* [golobby/config](https://github.com/golobby/config): A lightweight yet powerful config package for Go projects
+* [golobby/env](https://github.com/golobby/env): A lightweight package for loading OS environment variables into structs for Go projects
 
 ## License
 GoLobby DotEnv is released under the [MIT License](http://opensource.org/licenses/mit-license.php).
