@@ -114,7 +114,7 @@ func (d Decoder) feed(structure interface{}, kvs map[string]string) error {
 // feedStruct sets reflected struct fields with the given key/value pairs.
 func (d Decoder) feedStruct(s reflect.Value, vars map[string]string) error {
 	for i := 0; i < s.NumField(); i++ {
-		if t, exist := s.Type().Field(i).Tag.Lookup("dotenv"); exist {
+		if t, exist := s.Type().Field(i).Tag.Lookup("env"); exist {
 			if val, exist := vars[t]; exist {
 				v, err := cast.FromString(val, s.Type().Field(i).Type.Name())
 				if err != nil {

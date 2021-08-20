@@ -19,7 +19,6 @@ go get github.com/golobby/dotenv
 ```
 
 ### Usage Example
-
 Sample `.env` file:
 
 ```env
@@ -38,16 +37,16 @@ Sample `.go` file:
 
 ```go
 type Config struct {
-    Debug bool      `dotenv:"DEBUG"`
+    Debug bool      `env:"DEBUG"`
     App struct {
-        Name string `dotenv:"APP_NAME"`
-        Port int16  `dotenv:"APP_PORT"`
+        Name string `env:"APP_NAME"`
+        Port int16  `env:"APP_PORT"`
     }
     Database struct {
-        Name string `dotenv:"DB_NAME"`
-        Port int16  `dotenv:"DB_PORT"`
-        User string `dotenv:"DB_USER"`
-        Pass string `dotenv:"DB_PASS"`
+        Name string `env:"DB_NAME"`
+        Port int16  `env:"DB_PORT"`
+        User string `env:"DB_USER"`
+        Pass string `env:"DB_PASS"`
     }
 }
 
