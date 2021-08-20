@@ -5,7 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/golobby/dotenv/badge.svg)](https://coveralls.io/github/golobby/dotenv)
 
 # DotEnv
-GoLobby DotEnv is a lightweight package for loading OS environment variables into structs for Go projects.
+GoLobby DotEnv is a lightweight package for loading dot env (.env) files into structs for Go projects
 
 ## Documentation
 ### Supported Versions
