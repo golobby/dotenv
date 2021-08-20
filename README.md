@@ -58,6 +58,17 @@ err = dotenv.Load(f, &c)
 // Use `c` struct in your app!
 ```
 
+### Usage Tips
+* The `Load()` function gets a pointer of a struct.
+* It ignores the fields that have no related environment variables in the file.
+* It supports nested structs and struct pointers.
+
+### Field Types
+GoLobby DotEnv uses the [GoLobby Cast](https://github.com/golobby/cast) package to cast environment variables to related struct field types.
+Here you can see the supported types:
+
+https://github.com/golobby/cast#supported-types
+
 ## See Also
 * [GoLobby/Config](https://github.com/golobby/config):
   A lightweight yet powerful config package for Go projects
