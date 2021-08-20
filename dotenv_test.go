@@ -16,7 +16,7 @@ type FlagBox struct {
 
 type Config struct {
 	AppName  string  `dotenv:"APP_NAME"`
-	AppPort  string  `dotenv:"APP_PORT"`
+	AppPort  int32   `dotenv:"APP_PORT"`
 	float    float64 `dotenv:"FLOAT"`
 	FlagBox  *FlagBox
 	QuoteBox struct {
@@ -36,7 +36,7 @@ func TestLoad(t *testing.T) {
 	assert.NoError(t, err)
 
 	assert.Equal(t, "DotEnv", c.AppName)
-	assert.Equal(t, "8585", c.AppPort)
+	assert.Equal(t, int32(8585), c.AppPort)
 	assert.Equal(t, 3.14, c.float)
 	assert.Equal(t, true, c.FlagBox.Bool1)
 	assert.Equal(t, false, c.FlagBox.Bool2)
@@ -44,6 +44,28 @@ func TestLoad(t *testing.T) {
 	assert.Equal(t, false, c.FlagBox.Bool4)
 	assert.Equal(t, "OK1", c.QuoteBox.Quote1)
 	assert.Equal(t, " OK 2 ", c.QuoteBox.Quote2)
+
+	err = f.Close()
+	assert.NoError(t, err)
+}
+
+func TestLoad_With_Default_Value(t *testing.T) {
+	f, err := os.Open("resources/test/.env")
+	assert.NoError(t, err)
+
+	type Config struct {
+		AppName string `dotenv:"APP_NAME"`
+		AppUrl  string `dotenv:"APP_URL"`
+	}
+
+	c := &Config{}
+	c.AppUrl = "https://example.com"
+
+	err = dotenv.Load(f, c)
+	assert.NoError(t, err)
+
+	assert.Equal(t, "DotEnv", c.AppName)
+	assert.Equal(t, "https://example.com", c.AppUrl)
 
 	err = f.Close()
 	assert.NoError(t, err)
