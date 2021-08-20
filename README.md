@@ -56,7 +56,7 @@ file, err := os.Open(".env")
 
 err = dotenv.NewDecoder(file).Decode(&config)
 
-// Use `c` struct in your app!
+// Use `config` struct in your app!
 ```
 
 ### Usage Tips
