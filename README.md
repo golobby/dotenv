@@ -2,7 +2,7 @@
 [![CI](https://github.com/golobby/dotenv/actions/workflows/ci.yml/badge.svg)](https://github.com/golobby/dotenv/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/golobby/dotenv/workflows/CodeQL/badge.svg)](https://github.com/golobby/dotenv/actions?query=workflow%3ACodeQL)
 [![Go Report Card](https://goreportcard.com/badge/github.com/golobby/dotenv)](https://goreportcard.com/report/github.com/golobby/dotenv)
-[![Coverage Status](https://coveralls.io/repos/github/golobby/dotenv/badge.svg?branch=master)](https://coveralls.io/github/golobby/dotenv?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/golobby/dotenv/badge.svg?branch=master&v=1)](https://coveralls.io/github/golobby/dotenv?branch=master)
 
 # DotEnv
 
@@ -34,6 +34,8 @@ DB_USER=root
 DB_PASS=secret
 ```
 
+Sample `.go` file:
+
 ```go
 type Config struct {
     Debug bool      `env:"DEBUG"`
@@ -51,10 +53,14 @@ type Config struct {
 
 c := Config{}
 f, err := os.Open(".env")
-err := dotenv.Load(f, &c)
+err = dotenv.Load(f, &c)
 
 // Use `c` struct in your app!
 ```
+
+## See Also
+* [GoLobby/Config](https://github.com/golobby/config): A lightweight yet powerful config package for Go projects
+* [GoLobby/Env](https://github.com/golobby/env): A lightweight package for loading OS environment variables into structs for Go projects
 
 ## License
 GoLobby DotEnv is released under the [MIT License](http://opensource.org/licenses/mit-license.php).
