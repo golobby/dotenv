@@ -51,16 +51,16 @@ type Config struct {
     }
 }
 
-c := Config{}
-f, err := os.Open(".env")
+config := Config{}
+file, err := os.Open(".env")
 
-err = dotenv.NewDecoder(f).Decode(&c)
+err = dotenv.NewDecoder(file).Decode(&config)
 
-// Use `c` struct in your app!
+// Use `config` struct in your app!
 ```
 
 ### Usage Tips
-* The `Load()` function gets a pointer of a struct.
+* The `Decode()` function gets a pointer of a struct.
 * It ignores the fields that have no related environment variables in the file.
 * It supports nested structs and struct pointers.
 
