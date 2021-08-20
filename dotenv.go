@@ -1,4 +1,4 @@
-// Package dotenv is a lightweight package for loading dot env (.env) files into structs in Go projects.
+// Package dotenv is a lightweight library for loading dot env (.env) files into structs.
 package dotenv
 
 import (
@@ -12,7 +12,7 @@ import (
 	"unsafe"
 )
 
-// Load read a dot env (.env) file and fills the given struct.
+// Load reads a dot env (.env) file and fills the given struct fields.
 func Load(file *os.File, structure interface{}) error {
 	kvs, err := read(file)
 	if err != nil {
@@ -26,7 +26,7 @@ func Load(file *os.File, structure interface{}) error {
 	return nil
 }
 
-// read scans given dot env (.env) file and extract its key/value pairs
+// read scans a dot env (.env) file and extracts its key/value pairs.
 func read(file *os.File) (map[string]string, error) {
 	kvs := map[string]string{}
 	scanner := bufio.NewScanner(file)
@@ -46,7 +46,7 @@ func read(file *os.File) (map[string]string, error) {
 	return kvs, nil
 }
 
-// parse extracts a key/value pair from the given dot env (.env) single line
+// parse extracts a key/value pair from the given dot env (.env) single line.
 func parse(line string) (string, string, error) {
 	ln := strings.TrimSpace(line)
 	kv := []string{"", ""}
@@ -94,7 +94,7 @@ func parse(line string) (string, string, error) {
 	return strings.TrimSpace(kv[0]), kv[1], nil
 }
 
-// fill sets a struct fields with the given map of key/value pairs
+// fill sets struct fields with the given key/value pairs.
 func fill(structure interface{}, kvs map[string]string) error {
 	inputType := reflect.TypeOf(structure)
 	if inputType != nil {
@@ -108,7 +108,7 @@ func fill(structure interface{}, kvs map[string]string) error {
 	return errors.New("dotenv: invalid structure")
 }
 
-// fillStruct sets a reflected struct fields with the given map of key/value pairs
+// fillStruct sets reflected struct fields with the given key/value pairs.
 func fillStruct(s reflect.Value, vars map[string]string) error {
 	for i := 0; i < s.NumField(); i++ {
 		if t, exist := s.Type().Field(i).Tag.Lookup("env"); exist {
