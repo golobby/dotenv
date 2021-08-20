@@ -60,7 +60,7 @@ err = dotenv.NewDecoder(file).Decode(&config)
 ```
 
 ### Usage Tips
-* The `Load()` function gets a pointer of a struct.
+* The `Decode()` function gets a pointer of a struct.
 * It ignores the fields that have no related environment variables in the file.
 * It supports nested structs and struct pointers.
 
