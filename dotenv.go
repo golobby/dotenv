@@ -111,7 +111,7 @@ func fill(structure interface{}, kvs map[string]string) error {
 // fillStruct sets reflected struct fields with the given key/value pairs.
 func fillStruct(s reflect.Value, vars map[string]string) error {
 	for i := 0; i < s.NumField(); i++ {
-		if t, exist := s.Type().Field(i).Tag.Lookup("env"); exist {
+		if t, exist := s.Type().Field(i).Tag.Lookup("dotenv"); exist {
 			if val, exist := vars[t]; exist {
 				v, err := cast.FromString(val, s.Type().Field(i).Type.Name())
 				if err != nil {

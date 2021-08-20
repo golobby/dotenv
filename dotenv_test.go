@@ -8,20 +8,20 @@ import (
 )
 
 type FlagBox struct {
-	Bool1 bool `env:"BOOL1"`
-	Bool2 bool `env:"BOOL2"`
-	Bool3 bool `env:"BOOL3"`
-	Bool4 bool `env:"BOOL4"`
+	Bool1 bool `dotenv:"BOOL1"`
+	Bool2 bool `dotenv:"BOOL2"`
+	Bool3 bool `dotenv:"BOOL3"`
+	Bool4 bool `dotenv:"BOOL4"`
 }
 
 type Config struct {
-	AppName  string  `env:"APP_NAME"`
-	AppPort  string  `env:"APP_PORT"`
-	float    float64 `env:"FLOAT"`
+	AppName  string  `dotenv:"APP_NAME"`
+	AppPort  string  `dotenv:"APP_PORT"`
+	float    float64 `dotenv:"FLOAT"`
 	FlagBox  *FlagBox
 	QuoteBox struct {
-		Quote1 string `env:"QUOTE1"`
-		Quote2 string `env:"QUOTE2"`
+		Quote1 string `dotenv:"QUOTE1"`
+		Quote2 string `dotenv:"QUOTE2"`
 	}
 }
 
@@ -86,7 +86,7 @@ func TestLoad_With_Invalid_Field_It_Should_Fail(t *testing.T) {
 	assert.NoError(t, err)
 
 	sample := struct {
-		BOOL1 bool `env:"APP_NAME"`
+		BOOL1 bool `dotenv:"APP_NAME"`
 	}{}
 	err = dotenv.Load(f, &sample)
 	assert.Error(t, err)
@@ -100,7 +100,7 @@ func TestLoad_With_Invalid_Nested_Structure_Field_It_Should_Fail(t *testing.T) {
 	assert.NoError(t, err)
 
 	type Inner struct {
-		Float float64 `env:"APP_NAME"`
+		Float float64 `dotenv:"APP_NAME"`
 	}
 
 	outer := struct {
@@ -120,7 +120,7 @@ func TestLoad_With_Invalid_Nested_Structure_Ptr_Field_It_Should_Fail(t *testing.
 	assert.NoError(t, err)
 
 	type Inner struct {
-		Float float64 `env:"APP_NAME"`
+		Float float64 `dotenv:"APP_NAME"`
 	}
 
 	outer := struct {
