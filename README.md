@@ -71,7 +71,7 @@ https://github.com/golobby/cast#supported-types
 
 ## See Also
 * [GoLobby/Config](https://github.com/golobby/config):
-  A lightweight yet powerful config package for Go projects
+  A lightweight yet powerful configuration management for Go projects
 * [GoLobby/Env](https://github.com/golobby/env):
   A lightweight package for loading OS environment variables into structs for Go projects
 
