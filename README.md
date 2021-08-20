@@ -53,7 +53,8 @@ type Config struct {
 
 c := Config{}
 f, err := os.Open(".env")
-err = dotenv.Load(f, &c)
+
+err = dotenv.NewDecoder(f).Decode(&c)
 
 // Use `c` struct in your app!
 ```
