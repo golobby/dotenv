@@ -51,10 +51,10 @@ type Config struct {
     }
 }
 
-c := Config{}
-f, err := os.Open(".env")
+config := Config{}
+file, err := os.Open(".env")
 
-err = dotenv.NewDecoder(f).Decode(&c)
+err = dotenv.NewDecoder(file).Decode(&config)
 
 // Use `c` struct in your app!
 ```
