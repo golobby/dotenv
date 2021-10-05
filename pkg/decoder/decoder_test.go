@@ -15,9 +15,11 @@ type FlagBox struct {
 }
 
 type Config struct {
-	AppName  string  `env:"APP_NAME"`
-	AppPort  int32   `env:"APP_PORT"`
-	float    float64 `env:"FLOAT"`
+	AppName  string   `env:"APP_NAME"`
+	AppPort  int32    `env:"APP_PORT"`
+	IPs      []string `env:"IPS"`
+	IDs      []int64  `env:"IDS"`
+	float    float64  `env:"FLOAT"`
 	FlagBox  *FlagBox
 	QuoteBox struct {
 		Quote1 string `env:"QUOTE1"`
@@ -37,6 +39,8 @@ func TestLoad(t *testing.T) {
 
 	assert.Equal(t, "DotEnv", c.AppName)
 	assert.Equal(t, int32(8585), c.AppPort)
+	assert.Equal(t, []string{"192.168.0.1", "192.168.0.2"}, c.IPs)
+	assert.Equal(t, []int64{10, 11, 12, 13, 14}, c.IDs)
 	assert.Equal(t, 3.14, c.float)
 	assert.Equal(t, true, c.FlagBox.Bool1)
 	assert.Equal(t, false, c.FlagBox.Bool2)
