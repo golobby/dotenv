@@ -27,6 +27,9 @@ DEBUG=true
 APP_NAME=MyApp
 APP_PORT=8585
 
+IPS=192.168.0.1,192.168.0.2
+IDS=10,11,12,13,14
+
 DB_NAME=shop
 DB_PORT=3306
 DB_USER=root
@@ -48,6 +51,8 @@ type Config struct {
         User string `env:"DB_USER"`
         Pass string `env:"DB_PASS"`
     }
+    IPs []string `env:"IPS"`
+	IDs []int64  `env:"IDS"`
 }
 
 config := Config{}
