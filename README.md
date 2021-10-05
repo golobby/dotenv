@@ -2,10 +2,10 @@
 [![CI](https://github.com/golobby/dotenv/actions/workflows/ci.yml/badge.svg)](https://github.com/golobby/dotenv/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/golobby/dotenv/workflows/CodeQL/badge.svg)](https://github.com/golobby/dotenv/actions?query=workflow%3ACodeQL)
 [![Go Report Card](https://goreportcard.com/badge/github.com/golobby/dotenv)](https://goreportcard.com/report/github.com/golobby/dotenv)
-[![Coverage Status](https://coveralls.io/repos/github/golobby/dotenv/badge.svg)](https://coveralls.io/github/golobby/dotenv)
+[![Coverage Status](https://coveralls.io/repos/github/golobby/dotenv/badge.svg?v=1)](https://coveralls.io/github/golobby/dotenv)
 
 # DotEnv
-GoLobby DotEnv is a lightweight package for loading OS environment variables into structs for Go projects.
+GoLobby DotEnv is a lightweight package for loading dot env (.env) files into structs for Go projects
 
 ## Documentation
 ### Supported Versions
@@ -71,7 +71,7 @@ https://github.com/golobby/cast#supported-types
 
 ## See Also
 * [GoLobby/Config](https://github.com/golobby/config):
-  A lightweight yet powerful config package for Go projects
+  A lightweight yet powerful configuration management for Go projects
 * [GoLobby/Env](https://github.com/golobby/env):
   A lightweight package for loading OS environment variables into structs for Go projects
 
