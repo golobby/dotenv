@@ -74,6 +74,31 @@ Here you can see the supported types:
 
 https://github.com/golobby/cast#supported-types
 
+### DotEnv Syntax
+The following snippet shows a valid dot env file.
+
+```env
+String = Hello Dot Env # Comment
+
+# Quotes
+Quote1="Quoted message!"
+Quote2="You can use ' here"
+Quote3='You can use " here'
+Quote4="You can use # here"
+
+# Booleans
+Bool1 = true
+Bool2 = 1 # true
+Bool3 = false
+Bool4 = 0 # false
+
+# Arrays
+Ints    = 1,2, 3, 4 , 5 # []int{1, 2, 3, 4, 5}
+Strings = a,b, c, d , e # []string{"a", "b", "c", "d", "e"}
+Floats  = 3.14,9.8, 6.9 # []float32{3.14, 9.8, 6.9}
+
+```
+
 ## See Also
 * [GoLobby/Config](https://github.com/golobby/config):
   A lightweight yet powerful configuration management for Go projects
