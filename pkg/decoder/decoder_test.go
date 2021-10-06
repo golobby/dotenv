@@ -24,6 +24,9 @@ type Config struct {
 	QuoteBox struct {
 		Quote1 string `env:"QUOTE1"`
 		Quote2 string `env:"QUOTE2"`
+		Quote3 string `env:"QUOTE3"`
+		Quote4 string `env:"QUOTE4"`
+		Quote5 string `env:"QUOTE5"`
 	}
 }
 
@@ -39,7 +42,7 @@ func TestLoad(t *testing.T) {
 
 	assert.Equal(t, "DotEnv", c.AppName)
 	assert.Equal(t, int32(8585), c.AppPort)
-	assert.Equal(t, []string{"192.168.0.1", "192.168.0.2"}, c.IPs)
+	assert.Equal(t, []string{"192.168.0.1", "192.168.0.2", "192.168.0.3"}, c.IPs)
 	assert.Equal(t, []int64{10, 11, 12, 13, 14}, c.IDs)
 	assert.Equal(t, 3.14, c.float)
 	assert.Equal(t, true, c.FlagBox.Bool1)
@@ -48,6 +51,9 @@ func TestLoad(t *testing.T) {
 	assert.Equal(t, false, c.FlagBox.Bool4)
 	assert.Equal(t, "OK1", c.QuoteBox.Quote1)
 	assert.Equal(t, " OK 2 ", c.QuoteBox.Quote2)
+	assert.Equal(t, " OK ' 3 ", c.QuoteBox.Quote3)
+	assert.Equal(t, " OK \" 4 ", c.QuoteBox.Quote4)
+	assert.Equal(t, " OK # 5 ", c.QuoteBox.Quote5)
 
 	err = f.Close()
 	assert.NoError(t, err)

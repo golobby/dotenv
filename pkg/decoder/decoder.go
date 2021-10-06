@@ -53,48 +53,53 @@ func (d Decoder) read(file *os.File) (map[string]string, error) {
 func (d Decoder) parse(line string) (string, string, error) {
 	ln := strings.TrimSpace(line)
 	kv := []string{"", ""}
-	ci := 0
-	qt := false
+	pi := 0
+	iq := false
+	qt := "'"
 
 	for i := 0; i < len(ln); i++ {
-		if string(ln[i]) == "#" {
+		if string(ln[i]) == "#" && pi == 0 {
 			break
 		}
 
-		if string(ln[i]) == "=" && ci == 0 {
-			ci = 1
+		if string(ln[i]) == "#" && pi == 1 && iq == false {
+			break
+		}
+
+		if string(ln[i]) == "=" && pi == 0 {
+			pi = 1
 			continue
 		}
 
-		if string(ln[i]) == " " {
-			if kv[ci] == "" {
-				if qt == false {
-					continue
-				}
-			} else {
-				if ci == 1 && qt == false {
-					break
-				}
+		if string(ln[i]) == " " && pi == 1 {
+			if iq == false && kv[pi] == "" {
+				continue
 			}
 		}
 
-		if string(ln[i]) == "\"" && ci == 1 {
-			if kv[ci] == "" {
-				qt = true
+		if (string(ln[i]) == "\"" || string(ln[i]) == "'") && pi == 1 {
+			if kv[pi] == "" {
+				iq = true
+				qt = string(ln[i])
 				continue
-			} else if qt == true {
+			} else if iq == true && qt == string(ln[i]) {
 				break
 			}
 		}
 
-		kv[ci] += string(ln[i])
+		kv[pi] += string(ln[i])
 	}
 
-	if (ci == 0 && kv[0] != "") || (ci == 1 && kv[0] == "") {
+	kv[0] = strings.TrimSpace(kv[0])
+	if iq == false {
+		kv[1] = strings.TrimSpace(kv[1])
+	}
+
+	if (pi == 0 && kv[0] != "") || (pi == 1 && kv[0] == "") {
 		return "", "", fmt.Errorf("dotenv: invalid syntax")
 	}
 
-	return strings.TrimSpace(kv[0]), kv[1], nil
+	return kv[0], kv[1], nil
 }
 
 // feed sets struct fields with the given key/value pairs.
