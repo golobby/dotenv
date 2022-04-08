@@ -7,6 +7,7 @@ import (
 	"github.com/golobby/cast"
 	"os"
 	"reflect"
+	"regexp"
 	"strings"
 	"unsafe"
 )
@@ -31,16 +32,15 @@ func (d Decoder) Decode(structure interface{}) error {
 
 // read scans a dot env (.env) file and extracts its key/value pairs.
 func (d Decoder) read(file *os.File) (map[string]string, error) {
-	kvs := map[string]string{}
 	scanner := bufio.NewScanner(file)
 
-	for i := 1; scanner.Scan(); i++ {
-		if k, v, err := d.parse(scanner.Text()); err != nil {
-			return nil, fmt.Errorf("dotenv: error in line %v; err: %v", i, err)
-		} else if k != "" {
-			kvs[k] = v
-		}
+	var lines []string
+
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
 	}
+
+	kvs := d.parse(strings.Join(lines, "\n"))
 
 	if err := scanner.Err(); err != nil {
 		return nil, fmt.Errorf("dotenv: error when scanning file; err: %v", err)
@@ -49,57 +49,42 @@ func (d Decoder) read(file *os.File) (map[string]string, error) {
 	return kvs, nil
 }
 
-// parse extracts a key/value pair from the given dot env (.env) single line.
-func (d Decoder) parse(line string) (string, string, error) {
-	ln := strings.TrimSpace(line)
-	kv := []string{"", ""}
-	pi := 0
-	iq := false
-	qt := "'"
+func (d Decoder) parse(lines string) map[string]string {
+	kvs := make(map[string]string)
 
-	for i := 0; i < len(ln); i++ {
-		if string(ln[i]) == "#" && pi == 0 {
-			break
+	re := regexp.MustCompile("(?m)^\\s*(?:export\\s+)?([\\w.-]+)(?:\\s*=\\s*?|:\\s+?)(\\s*'(?:\\\\'|[^'])*'|\\s*\"(?:\\\\\"|[^\"])*\"|\\s*`(?:\\\\`|[^`])*`|[^#\\r\\n]+)?\\s*(?:#.*)?$")
+	matches := re.FindAllStringSubmatch(lines, -1)
+
+	for _, match := range matches {
+		var key string
+		var value string
+
+		key = match[1]
+		if len(match) > 1 {
+			value = match[2]
 		}
 
-		if string(ln[i]) == "#" && pi == 1 && iq == false {
-			break
-		}
+		value = strings.TrimSpace(value)
 
-		if string(ln[i]) == "=" && pi == 0 {
-			pi = 1
+		if value == "" {
+			kvs[key] = value
 			continue
 		}
 
-		if string(ln[i]) == " " && pi == 1 {
-			if iq == false && kv[pi] == "" {
-				continue
+		maybeQuote := string(value[0])
+
+		if maybeQuote == "'" || maybeQuote == "`" || maybeQuote == `"` {
+			pattern := fmt.Sprintf(`^%s([\s\S]*)%s[^%s]*$`, maybeQuote, maybeQuote, maybeQuote)
+			res := regexp.MustCompile(pattern).FindStringSubmatch(value)
+			if res != nil {
+				value = res[1]
 			}
 		}
 
-		if (string(ln[i]) == "\"" || string(ln[i]) == "'") && pi == 1 {
-			if kv[pi] == "" {
-				iq = true
-				qt = string(ln[i])
-				continue
-			} else if iq == true && qt == string(ln[i]) {
-				break
-			}
-		}
-
-		kv[pi] += string(ln[i])
+		kvs[key] = value
 	}
 
-	kv[0] = strings.TrimSpace(kv[0])
-	if iq == false {
-		kv[1] = strings.TrimSpace(kv[1])
-	}
-
-	if (pi == 0 && kv[0] != "") || (pi == 1 && kv[0] == "") {
-		return "", "", fmt.Errorf("dotenv: invalid syntax")
-	}
-
-	return kv[0], kv[1], nil
+	return kvs
 }
 
 // feed sets struct fields with the given key/value pairs.
