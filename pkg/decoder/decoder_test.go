@@ -28,6 +28,9 @@ type Config struct {
 		Quote4 string `env:"QUOTE4"`
 		Quote5 string `env:"QUOTE5"`
 	}
+	Empty        string `env:"EMPTY"`
+	Multiline    string `env:"MULTILINE"`
+	MultiSpecial string `env:"MULTI_SPECIAL"`
 }
 
 func TestLoad(t *testing.T) {
@@ -54,6 +57,9 @@ func TestLoad(t *testing.T) {
 	assert.Equal(t, " OK ' 3 ", c.QuoteBox.Quote3)
 	assert.Equal(t, " OK \" 4 ", c.QuoteBox.Quote4)
 	assert.Equal(t, " OK # 5 ", c.QuoteBox.Quote5)
+	assert.Equal(t, "1\n2\n3", c.Multiline)
+	assert.Equal(t, "", c.Empty)
+	assert.Equal(t, "\n1\"\n'2'\n#3", c.MultiSpecial)
 
 	err = f.Close()
 	assert.NoError(t, err)
