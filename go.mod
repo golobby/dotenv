@@ -1,6 +1,6 @@
 module github.com/golobby/dotenv
 
-go 1.11
+go 1.16
 
 require (
 	github.com/golobby/cast v1.3.1
